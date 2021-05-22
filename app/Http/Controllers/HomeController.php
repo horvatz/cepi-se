@@ -38,6 +38,10 @@ class HomeController extends Controller
 
     public function allApplications()
     {
-        
+        $applications = Vaccination::all();
+
+        return view('vaccinations', [
+            'applications' => $applications
+        ]);
     }
 }

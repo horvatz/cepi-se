@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\VaccinationController;
 use App\Http\Controllers\PatientController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\AppointmentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,9 +23,10 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/home/vaccination/applicants', [App\Http\Controllers\HomeController::class, 'allApplications'])->name('allApplications');
-
+Route::get('/admin', [HomeController::class, 'index'])->name('admin');
+Route::get('/admin/vaccination/applicants', [HomeController::class, 'allApplications'])->name('allApplications');
+Route::get('/admin/vaccination/appointment/{id}', [AppointmentController::class, 'create'])->name('appointmentCreate')->middleware('auth');
+Route::post('/admin/vaccination/appointment', [AppointmentController::class, 'store'])->name('appointmentStore')->middleware('auth');
 
 Route::get('/vaccination/signup', [VaccinationController::class, 'create']);
 Route::post('/vaccination/signup', [VaccinationController::class, 'store']);
