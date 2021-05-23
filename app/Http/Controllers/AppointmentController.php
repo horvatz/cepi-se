@@ -138,7 +138,7 @@ class AppointmentController extends Controller
 
         $appointment->delete();
 
-        return redirect()->route('allAppointments')
+        return redirect()->route('allAppointments');
     }
 
     public function complete($id)
