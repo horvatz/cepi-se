@@ -11,6 +11,11 @@ class Appointment extends Model
 
     public function vaccine()
     {
-        return $this->hasOne(Vaccine::class);
+        return $this->belongsTo(Vaccine::class);
+    }
+
+    public function vaccination()
+    {
+        return $this->belongsTo(Vaccination::class);
     }
 }

@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Vaccine extends Model
 {
     use HasFactory;
+
+    public function appointment()
+    {
+        return $this->hasOne(Appointment::class);
+    }
 }

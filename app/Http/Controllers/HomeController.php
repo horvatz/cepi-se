@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Vaccination;
 use App\Models\Patient;
+use App\Models\Appointment;
 
 
 class HomeController extends Controller
@@ -41,7 +42,16 @@ class HomeController extends Controller
         $applications = Vaccination::all();
 
         return view('vaccinations', [
-            'applications' => $applications
+            'applications' => $applications,
+        ]);
+    }
+
+    public function allVaccinated()
+    {
+        $vaccinations = Vaccination::all();
+
+        return view('vaccinated_people', [
+            'vaccinations' => $vaccinations
         ]);
     }
 }

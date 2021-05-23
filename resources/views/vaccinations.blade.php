@@ -14,10 +14,10 @@
                     <thead>
                         <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Datum in čas prijave</th>
-                        <th scope="col">Cepljenje opravljeno</th>
+                        <th scope="col">Datum in čas</th>
+                        <th scope="col">Vsaj eno cepljenje</th>
                         <th scope="col">ZZZS številka pacienta</th>
-                        <th scope="col">Termin</th>
+                        <th scope="col"></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -34,10 +34,10 @@
                                 </td>
                                 <td>{{ $application->patient->zzzs_number }}</td>
                                 <td>
-                                @if ($application->completed === 0)
-                                    <a href="{{ route('appointmentCreate', $application->id) }}" class="btn btn-success">Dodaj termin</a>
+                                @if ($application->appointment->count() > 0 && $application->appointment[0]->completed === 1 && $application->appointment[1]->completed === 1)
+                                    <button type="button" class="btn btn-success" disabled>Oseba je precepljena</button>
                                 @else
-                                    <button type="button" class="btn btn-success" disabled>Termin že dodan</button>
+                                    <a href="{{ route('appointmentCreate', $application->id) }}" class="btn btn-success">Dodaj termin</a>
                                 @endif
                                 </td>
                             </tr>

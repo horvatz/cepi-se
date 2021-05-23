@@ -3,6 +3,6 @@
         Domov
     </a>
     <a href="/admin/vaccination/applicants" class="list-group-item list-group-item-action">Prijave</a>
-    <a href="#" class="list-group-item list-group-item-action">Termini</a>
-    <a href="#" class="list-group-item list-group-item-action">Pregled potrdil</a>
+    <a href="/admin/appointment" class="list-group-item list-group-item-action">Termini</a>
+    <a href="/admin/vaccination/people" class="list-group-item list-group-item-action">Cepljene osebe</a>
 </div>
