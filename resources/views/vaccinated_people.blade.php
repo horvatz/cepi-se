@@ -22,9 +22,9 @@
                     </thead>
                     <tbody>
                         @foreach($vaccinations as $vaccination)
-                            @if($vaccination->appointment->count() > 0 && $vaccination->appointment[0]->completed === 1 && $vaccination->appointment[1]->completed === 1)
+                            @if(isset($vaccination->appointment[0]) && isset($vaccination->appointment[1]) && $vaccination->appointment->count() > 0 && $vaccination->appointment[0]->completed === 1 && $vaccination->appointment[1]->completed === 1)
                             <tr>
-                                <th scope="row">{{ $vaccination->appointment->count() }}</th>
+                                <th scope="row">{{ $vaccination->patient->id }}</th>
                                 <td>{{ $vaccination->patient->first_name }} {{ $vaccination->patient->last_name }}</td>
                                 <td>{{ $vaccination->patient->zzzs_number }}</td>
                                 <td>{{ $vaccination->appointment->count() }}</td>

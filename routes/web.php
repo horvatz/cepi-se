@@ -32,7 +32,7 @@ Route::post('/admin/vaccination/appointment', [AppointmentController::class, 'st
 Route::get('/admin/appointment/', [AppointmentController::class, 'index'])->name('allAppointments')->middleware('auth');
 Route::get('/admin/appointment/{id}', [AppointmentController::class, 'show'])->name('singleAppointment');
 Route::get('/admin/appointment/complete/{id}', [AppointmentController::class, 'complete'])->name('completeAppointment')->middleware('auth');
-Route::get('/admin/appointment/delete', [AppointmentController::class, 'destroy'])->name('deleteAppointment')->middleware('auth');
+Route::get('/admin/appointment/delete/{id}', [AppointmentController::class, 'destroy'])->name('deleteAppointment')->middleware('auth');
 
 
 Route::get('/admin/vaccination/people', [HomeController::class, 'allVaccinated'])->name('allVaccinated');

@@ -34,7 +34,7 @@
                                 </td>
                                 <td>{{ $application->patient->zzzs_number }}</td>
                                 <td>
-                                @if ($application->appointment->count() > 0 && $application->appointment[0]->completed === 1 && $application->appointment[1]->completed === 1)
+                                @if (isset($application->appointment[0]) && isset($application->appointment[1]) && $application->appointment->count() > 0 && $application->appointment[0]->completed === 1 && $application->appointment[1]->completed === 1)
                                     <button type="button" class="btn btn-success" disabled>Oseba je precepljena</button>
                                 @else
                                     <a href="{{ route('appointmentCreate', $application->id) }}" class="btn btn-success">Dodaj termin</a>

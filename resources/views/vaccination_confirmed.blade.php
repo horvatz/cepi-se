@@ -13,6 +13,18 @@
                 <div class="col">
                     <h5 class="card-title">{{ $patient->first_name." ".$patient->last_name}}</h5>
                     <h6 class="card-subtitle mb-2 text-muted">ZZZS številka: {{$patient->zzzs_number}}</h6>
+                    @if(isset($patient->vaccination->appointment[0]) && isset($patient->vaccination->appointment[1]))
+                        @if($patient->vaccination->appointment[0]->completed === 1 && $patient->vaccination->appointment[1]->completed === 1)
+                            <h6 class="card-subtitle mb-2 text-success">Precepljena oseba</h6>
+                        @endif
+                    @endif
+                    @if(isset($patient->vaccination->appointment[0]))
+                        @if(!isset($patient->vaccination->appointment[1]) || (isset($patient->vaccination->appointment[1]) && !$patient->vaccination->appointment[1]->completed))
+                            @if($patient->vaccination->appointment[0]->completed === 1)
+                                <h6 class="card-subtitle mb-2 text-warning">Prejeti en odmerek cepiva</h6>
+                            @endif
+                        @endif
+                    @endif
                     <ul class="list-group pt-3 pb-3">
                         <li class="list-group-item">Številka prijave: {{$cert->id}}</li>
                         <li class="list-group-item">Datum in čas prijave: {{$cert->created_at}}</li>
@@ -23,6 +35,38 @@
                             Da
                         @endif
                         </li>
+                        @if(isset($patient->vaccination->appointment[0]) && isset($patient->vaccination->appointment[1]))
+                            @if($patient->vaccination->appointment[0]->completed === 1 && $patient->vaccination->appointment[1]->completed === 1)
+                                <li class="list-group-item">
+                                    <div>Prva doza: {{$patient->vaccination->appointment[0]->appointment_date}}</div>
+                                    <div>Cepivo: {{$patient->vaccination->appointment[0]->vaccine->provider}} {{$patient->vaccination->appointment[0]->vaccine->name}}</div>
+                                </li>
+                                <li class="list-group-item">
+                                    <div>Druga doza: {{$patient->vaccination->appointment[1]->appointment_date}}</div>
+                                    <div>Cepivo: {{$patient->vaccination->appointment[1]->vaccine->provider}} {{$patient->vaccination->appointment[0]->vaccine->name}}</div>
+                                </li>
+                            @elseif($patient->vaccination->appointment[0]->completed === 1)
+                                <li class="list-group-item">
+                                    <div>Prva doza: {{$patient->vaccination->appointment[0]->appointment_date}}</div>
+                                    <div>Cepivo: {{$patient->vaccination->appointment[0]->vaccine->provider}} {{$patient->vaccination->appointment[0]->vaccine->name}}</div>
+                                </li>
+                                <li class="list-group-item">
+                                    <div><strong>Termin cepljenja (druga doza): {{$patient->vaccination->appointment[1]->appointment_date}}<strong></div>
+                                </li>
+                            @endif
+                        @endif
+                        @if(isset($patient->vaccination->appointment[0]) && !isset($patient->vaccination->appointment[1]))
+                            @if($patient->vaccination->appointment[0]->completed === 1)
+                                <li class="list-group-item">
+                                    <div>Prva doza: {{$patient->vaccination->appointment[0]->appointment_date}}</div>
+                                    <div>Cepivo: {{$patient->vaccination->appointment[0]->vaccine->provider}} {{$patient->vaccination->appointment[0]->vaccine->name}}</div>
+                                </li>
+                            @else
+                                <li class="list-group-item">
+                                    <div><strong>Termin cepljenja (prva doza): {{$patient->vaccination->appointment[0]->appointment_date}}<strong></div>
+                                </li>
+                            @endif
+                        @endif
                     </ul>
                 </div>
             </div>

@@ -37,10 +37,16 @@
                                 <td>{{ $appointment->vaccination->patient->zzzs_number }}</td>
                                 <td>
                                 @if ($appointment->completed === 0)
-                                    <a href="{{ route('deleteAppointment', $appointment->id) }}" class="btn btn-danger" tabindex="-1" role="button" aria-disabled="true">Izbriši</a>
-                                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="getAppointment({{ $appointment->id }})">
-                                        Zaključi cepljenje
-                                    </button>
+                                    <div class="row">
+                                      <div class="col">
+                                        <a href="{{ route('deleteAppointment', $appointment->id) }}" class="btn btn-danger" tabindex="-1" role="button" aria-disabled="true">Izbriši termin</a>
+                                      </div>
+                                      <div class="col">
+                                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="getAppointment({{ $appointment->id }})">
+                                            Zaključi cepljenje
+                                        </button>
+                                      </div>
+                                    </div>
                                 @else
                                     <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#infoModal" onclick="getAppointment({{ $appointment->id }})">
                                         Cepljenje opravljeno
@@ -66,7 +72,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zapri</button>
-        <a href="{{ route('completeAppointment', $appointment->id) }}" class="btn btn-success" tabindex="-1" role="button" aria-disabled="true">Zaključi cepljenje</a>
+        <a href="{{ route('completeAppointment', $appointment->id) }}" id="modal-btn" class="btn btn-success" tabindex="-1" role="button" aria-disabled="true">Zaključi cepljenje</a>
       </div>
     </div>
   </div>
@@ -88,7 +94,7 @@
 </div>
 <script>
     const getAppointment = async(id) => {
-        console.log("test");
+        document.querySelector("#modal-btn").setAttribute("href", `/admin/appointment/complete/${id}`);
         const res = await fetch(`/admin/appointment/${id}`);
         const appointment = await res.json();
 
